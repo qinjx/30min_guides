@@ -336,28 +336,54 @@ selector就是一个方法指针，类似PHP里的动态方法名：
 	}
 
 在Objective-C里，selector主要用来做两类事情：
+
 ##### 绑定控件触发的动作
 
 	@implementation DemoViewController
-	- (void)downButtonPressed:(id)sender{
-	UIButton *button = (UIButton*)sender ;
-	for (UIView *subView in [button.superview subviews]) {//遍历这个view的subViews
-        if ([subView isKindOfClass:NSClassFromString(@"UIButton")] )
-		{	  
-			UIButton *btn = (UIButton*) subView;
-			if (btn.selected) {
-				[btn setSelected:NO];
-			} 
-			
-		}
-	} 
-	[button setSelected:YES];
+	- (void)downButtonPressed:(id)sender {//响应“按钮被按下事件”的方法
+		UIButton *button = (UIButton*)sender;
+		[button setSelected:YES];
+	}
 	
-	if (self._delegate && self._action && [self._delegate  respondsToSelector:self._action]) {
-		[self._delegate  performSelectorOnMainThread:self._action withObject:sender waitUntilDone:YES];
-	}	
-}
+	- (void)drawAnButton() {
+		UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom]; 
+		btn.frame = _frame; 
+		btn.tag = 1;
+		btn.backgroundColor = [UIColor clearColor];
+		[btn addTarget: self action: @selector(downButtonPressed:) forControlEvents: UIControlEventTouchUpInside];//当这个按钮被按下时，触发downButtonPressed:方法
+	}
 	@end
+
+#### 延时异步执行
+
+	@implementation ETHotDealViewController
+	- (void)viewDidLoad {
+		
+		//获取数据源
+		HotDealDataSource *ds = [[HotDealDataSource alloc]init];
+		[ds reload];
+		_items = ds.items;
+		
+		[super viewDidLoad];
+		staticHomeViewNav = self.navigationController;
+		
+		//导航区设置
+		self.title = @"热点推荐";
+		[self.navigationController setNavigationBarHidden:NO animated:NO];	 
+		
+		UIBarButtonItem* home =  [ETAONavigationButtonFactory getHomeButtonWithTaget:self andAction:@selector(UIBarButtonHomeClick:)];
+		self.navigationItem.leftBarButtonItem = home;
+		
+		[self performSelector:@selector(refreshTable) withObject:self afterDelay:0.5];//延迟0.5秒调用refreshTable方法
+	}
+	
+	-(void)refreshTable
+	{
+		[self.tableView reloadData];
+	}
+	@end
+
+这个例子中，获取数据源是通过ASIHTTP组件异步调用服务端HTTP接口，refreshTable要用到数据源返回回来的数据，如果不延迟0.5秒，就会立刻执行，执行的时候页面就是空白了（这时候数据还在路上呢）。
 
 ### 继承
 ### 协议（Protocol）
