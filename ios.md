@@ -444,6 +444,27 @@ Printable, Drawablw就是两个协议。
 	}
 
 ### 分类（Category）
+分类可以给一个已经存在的类增加方法，而不用去改它的源码。比如说，NSObject是一个Objective-C内置的系统类，我们想给它增加toJson方法，就像这样：
+
+	文件名NSObject+Json.h
+	@interface NSObject (Json)
+		-(NSString)toJson;
+	@end
+
+使用的时候，只要包含NSObject+Json.h，实例化NSObject类，就可以使用toJson方法了：
+
+	文件名：XYZController.m
+	import "NSObject+Json.h"
+	@implatementation XYZController
+		-(void)test {
+			NSObject *obj = [[]NSObject alloc]init];
+			NSString *str = [obj toJson];
+		}
+	@end
+
+当然了，NSObject本来的那些方法依然还是可以用的，什么都没变，只是多了个toJson方法。
+
+Java和PHP中都没有类似的特性。
 
 ## Cocoa Touch
 ### 最常用设计模式之Delegate
