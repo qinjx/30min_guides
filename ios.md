@@ -255,7 +255,7 @@ Implementation
 
 上述代码对应的Java版：
 
-	class MyClass {
+	public class MyClass {
 		protected int memberVar1;
 		protected pointer memberVar2;
 		private int memberVar3;
@@ -286,7 +286,7 @@ Implementation
 类定义
 
 	@interface MyClass
-	+(void) sayHello;
+		+(void) sayHello;
 	@end
 
 	@implementation MyClass
@@ -326,7 +326,7 @@ Implementation
 selector就是一个方法指针，类似PHP里的动态方法名：
 
 	<?php
-	Class Hello {
+	class Hello {
 		public function sayHello() {}
 		
 		public function test() {
@@ -345,7 +345,7 @@ selector就是一个方法指针，类似PHP里的动态方法名：
 		[button setSelected:YES];
 	}
 	
-	- (void)drawAnButton() {
+	- (void)drawAnButton {
 		UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom]; 
 		btn.frame = _frame; 
 		btn.tag = 1;
@@ -364,16 +364,6 @@ selector就是一个方法指针，类似PHP里的动态方法名：
 		[ds reload];
 		_items = ds.items;
 		
-		[super viewDidLoad];
-		staticHomeViewNav = self.navigationController;
-		
-		//导航区设置
-		self.title = @"热点推荐";
-		[self.navigationController setNavigationBarHidden:NO animated:NO];	 
-		
-		UIBarButtonItem* home =  [ETAONavigationButtonFactory getHomeButtonWithTaget:self andAction:@selector(UIBarButtonHomeClick:)];
-		self.navigationItem.leftBarButtonItem = home;
-		
 		[self performSelector:@selector(refreshTable) withObject:self afterDelay:0.5];//延迟0.5秒调用refreshTable方法
 	}
 	
@@ -386,8 +376,72 @@ selector就是一个方法指针，类似PHP里的动态方法名：
 这个例子中，获取数据源是通过ASIHTTP组件异步调用服务端HTTP接口，refreshTable要用到数据源返回回来的数据，如果不延迟0.5秒，就会立刻执行，执行的时候页面就是空白了（这时候数据还在路上呢）。
 
 ### 继承
+继承是写在Interface定义里面的。语法为：子类名在左，父类名在右，中间用冒号分隔。
+示例：
+
+	@interface MyClass : NSObject
+	@end
+
+对应的Java版本是：
+
+	public class MyClass extends NSObject {
+	}
+
 ### 协议（Protocol）
-就是Java、PHP里的Interface
+就是Java、PHP里的Interface。
+
+#### 协议的定义
+协议的定义用@protocol关键字：
+
+	@protocol Printable
+		-(void)print:(NSString)str;
+	@end
+
+对应的Java版本是：
+
+	publilc interface Printable {
+		public void print(String str);
+	}
+
+##### 协议的继承
+协议本身也可以继承别的协议：
+
+	@protocol Printable <NSObject>
+		-(void)print:(NSString)str;
+	@end
+
+对应的Java版本：
+
+	public interface Printable extends NSObject {
+		public void print (String str);
+	}
+
+##### 可选方法
+协议可以包含可选方法，顾名思义，可选方法可以不被类实现：
+
+	@protocol Printable
+	@optional
+		-(void)print:(NSString)str;
+	@end
+
+加了@optional关键字，一个类在implements这个协议时，便可以不实现print:方法。
+
+Java里没有类似的实现，除了Collection里会有一些方法带有optional的注释，但Collection是个特例。
+	
+#### 协议的实现
+一个类实现某些协议是写在Interface定义里面的。语法为：协议名用尖括号包裹，多个协议名用逗号隔开，协议写在父类的右边（如果没有父类就直接写在子类右边）。
+
+示例：
+
+	@interface  class MyClass : NSObject <Printable, Drawable>
+	@end
+
+Printable, Drawablw就是两个协议。
+
+对应的Java版本是：
+
+	public class MyClass extends NSObject implements Printable, Drawable {
+	}
 
 ### 分类（Category）
 
