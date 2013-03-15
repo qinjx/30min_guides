@@ -122,7 +122,7 @@ Objective-C扩展了ANSI C，是C的超集，也就是说：
 - 任何C源程序，不经修改，即可通过Objective-C编译器成功编译
 - Objective-C源程序中可以直接使用任何C语言代码
 
-除了面向对象有语法是SmallTalk风格的（下面会讲到），其它非面向对象的语法，与C完全相同。
+除了面向对象有语法是SmallTalk风格的（下面会讲到），其它非面向对象的语法、数据类型，与C完全相同，所以本文就不再赘述。
 来看一个经典的Hello World示例吧：
 
 	#import <Foundation/Foundation.h>
@@ -140,6 +140,12 @@ Objective-C的面向对象语法源自SmallTalk，消息传递（Message Passing
 在Java、C++世界，我们调用一个对象的某方法，在Objective-C里，这称作给类型发送一个消息，这可不仅仅是文字游戏，他们的技术细节也是不同的。
 
 在Java里，对象和方法关系非常严格，一个方法必须属于一个类/对象，否则编译是要报错的。而在Objective-C里，类型和消息的关系比较松散，消息处理到运行时（runtime）才会动态决定，给类型发送一个它无法处理的消息，也只会抛出一个异常，而不会挂掉。
+
+	[obj undefinedMethod];
+
+在代码里调用没定义的方法（这是Java世界的习惯说法啊，专业的叫法是，给obj对象传递它无法处理的消息），XCode会警告，但编译能成功，运行的时候会出错。它会输出这样一个错误：
+
+	Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[NSObject undefinedMethod]: unrecognized selector sent to instance 0x8871710'
 
 ### 类似Java的OOP概念
 Objective-C中一些面向对象的概念，也可以在Java中找到类似的实现（只能说是类似，不是完全相同），我的读者基本都是Java和PHP程序员，我会在下文中尽量用Java的概念来类比。
@@ -495,9 +501,14 @@ Java和PHP中都没有类似的特性。
 
 ### iPhone 5适配
 
-### 参考代码
+### 开源代码
 * [Apple官方的Sample Code](https://developer.apple.com/library/ios/navigation/#section=Resource%20Types&topic=Sample%20Code)
 * [维基百科上的开源iOS App](http://en.wikipedia.org/wiki/List_of_free_and_open_source_iOS_applications)
 * [iOS Opensource](http://www.iosopensource.com/) --Domain Parking了，以前可以下载Twitter和Wordpress客户端的
 * [code 4 app](http://code4app.com/)
 * [UI 4 app](http://ui4app.com/)， code4app的姐妹站
+
+### Objective-C教程
+- [Apple官方教程](http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)
+- [Cocoa Dev Center](http://cocoadevcentral.com/d/learn_objectivec/)
+- [维基上的Objective-C语言简介](http://zh.wikipedia.org/wiki/Objective-C) --中文，十分钟可读完，推荐
