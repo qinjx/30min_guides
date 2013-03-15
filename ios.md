@@ -516,7 +516,13 @@ Printable, Drawablw就是两个协议。
 	@end
 
 ## Cocoa Touch
+Cocoa是Mac OS App的开发框架，Cocoa Touch是iOS开发用的框架，Cocoa Touch和Cocoa大部分是一样的，只是Cocoa Touch多了一些移动设备特有的东西，如：触摸屏、加速度传感器、GPS定位。Cocoa中多任务、多窗口的特性，在Cocoa Touch中也是没有的（或者跟Cocoa不完全一样的）。
+
+就像学了Java语言还要再学一些Spring、Hibernate、Struts（或者其它类似的Java类库）才能开始做J2EE应用一样，学过Objective-C语言之后，也要再学习Cocoa Touch框架才能顺利地开发iOS应用。
+
 ### 最常用设计模式之Delegate
+Cocoa Touch大量使用Delegate（委派）设计模式。
+
 ### 常用控件：按钮、文本块、图片、输入框
 ### TableView
 ### WebView
