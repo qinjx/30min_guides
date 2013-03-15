@@ -450,27 +450,70 @@ Printable, Drawablw就是两个协议。
 	}
 
 ### 分类（Category）
-分类可以给一个已经存在的类增加方法，而不用去改它的源码。比如说，NSObject是一个Objective-C内置的系统类，我们想给它增加toJson方法，就像这样：
+分类可以给一个已经存在的类增加方法，而不用去改它的源码。Java和PHP中都没有类似的特性。
 
-	文件名NSObject+Json.h
+比如说，NSObject是一个Objective-C内置的系统类，我们想给它增加toJson方法，就像这样：
+
+头文件：NSObject+Json.h
+
 	@interface NSObject (Json)
 		-(NSString)toJson;
+	@end
+	
+实现文件：NSObject+Json.m
+
+	@implementation NSObject (Json)
+		-(NSString)toJson {
+			//...
+		}
 	@end
 
 使用的时候，只要包含NSObject+Json.h，实例化NSObject类，就可以使用toJson方法了：
 
-	文件名：XYZController.m
 	import "NSObject+Json.h"
 	@implatementation XYZController
 		-(void)test {
-			NSObject *obj = [[]NSObject alloc]init];
+			NSObject *obj = [[NSObject alloc]init];
 			NSString *str = [obj toJson];
 		}
 	@end
 
-当然了，NSObject本来的那些方法依然还是可以用的，什么都没变，只是多了个toJson方法。
+当然了，NSObject本来的那些方法依然还是可以用的，什么都没变，只是多了个toJson方法。看起来是不是和继承没太多差别呢（除了使用的时候实例化的是NSObject，而不是JsonObject）？再看一个继承实现不了的例子：
 
-Java和PHP中都没有类似的特性。
+头文件：NSObject+Json+XML.h
+
+	@interface NSObject (Json)
+		-(NSString)toJson;
+	@end
+	
+	@interface NSObject (XML)
+		-(NSString)toXML;
+	@end
+	
+实现文件：NSObject+Json+XML.m
+
+	@implementation NSObject (Json)
+		-(NSString)toJson {
+			//...
+		}
+	@end
+	
+	@implementation NSObject (XML)
+		-(NSString)toXML {
+			//...
+		}
+	@end
+
+使用：
+
+	import "NSObject+Json+XML.h"
+	@implatementation XYZController
+		-(void)test {
+			NSObject *obj = [[NSObject alloc]init];
+			NSString *json = [obj toJson];
+			NSString *xml = [obj toXML];
+		}
+	@end
 
 ## Cocoa Touch
 ### 最常用设计模式之Delegate
