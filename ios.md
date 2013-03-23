@@ -599,6 +599,45 @@ Mac电脑有摄像头，但Mac OS没有设计API给iOS模拟器调用，所以�
 ### 真机测试
 模拟器能验证你开发的iOS应用的大部分功能，但有些Mac设备上不具备的硬件，模拟器是不能模拟的。前文提到了一个绕过这些限制的办法，但获取当前位置、拍照、加速度感应这些是模拟不了的，一款应用发布给消费者之前，必须要在真实设备上验证过。
 
+将未提交App Store审核通过的应用安装到iOS设备上测试，有三种办法：
+
+- 加入苹果的Developer Program，成为付费会员，有了这个付费会员资格，就可以直接在XCode中点击”Run”将刚刚改过的代码编译打包安装到开发测试用的iOS设备上。
+- 越狱iOS设备。将iPhone和iPad越狱后，可以通过SSH直接上传XCode编译好的ipa包（一个iOS App本质上就是一个ipa包）。
+- 越狱的iOS设备，配合破解过的XCode，甚至可以实现和付费开发者计划一样的功能：在XCode上点击”Run”，就自动编译安装到iOS设备上去运行了
+- 企业部署方案。就像阿里巴巴的轩辕剑一样（http://xyj.im），用iPhone/iPad访问这个网址，点击里面的轩辕剑链接就可以安装轩辕剑这个应用了，显然，这个用来给QA团队做测试还行，开发人员用来实时自测就效率太低了。
+
+破解XCode是违法行为（越狱是合法的），而且挑版本挑得厉害，不是所有XCode版本都能破解，也不是所有XCode的破解版都能和越狱的iOS配合好。越狱+SSH上传跟企业部署一样效率低，最适合开发实时测试的就是第一个正规途径了。下面重点讲这个：
+
+#### 拥有一个开发者账号
+苹果的Developer Program分为个人开发者和公司开发者，分别是每年99美元和每年299美元，分别可以注册100台和500台苹果测试设备。这个台数限制在一个付费年度内不会清空，比如说，2013年4月1日付费成功的，付费会员资格在2014年3月31日之前有效，这期间，注册一台就少一个名额，哪怕这个设备注册进来用了之后一分钟马上又删掉了，减少的这个名额也不会回来。
+
+在交钱之前，最好问一下，周围的同事，有没有已经交了钱的。如果有，你只需要注册一个免费的Apple ID（就是你在App Store安装软件用的Apple ID），请他发个邀请邮件给你，把你的Apple ID加入他的团队就可以了，苹果会认为你们两个人是一个团队的，你们分别用自己的账号，共享100台设备的限额，这是合法的。
+
+#### 安装证书
+不想看下面各种点击各种页面跳转的直接用浏览器访问[证书管理](https://developer.apple.com/ios/manage/certificates/team/index.action)，你要登录你就用Apple ID登录（前提是交过钱，或者找交了钱的人把你加入团队了）。
+
+不嫌烦，或者想知道下次没我这个文档的时候怎么进证书管理吗？按这个步骤操作：
+
+- 进入 [苹果开发者中心](https://developer.apple.com/)
+- 点击iOS Dev Center
+- 点蓝色“Login”按钮，用你的Apple ID登录，登录成功会跳到 [开发者首页](https://developer.apple.com/devcenter/ios/index.action)
+- 点击右上角的[iOS Provisioning Portal](https://developer.apple.com/ios/manage/overview/index.action)（别找了，直接Command F搜索多好）
+- 点左侧菜单栏里的[Certificates](https://developer.apple.com/ios/manage/certificates/team/index.action)
+
+页面上有一个“Your Certificate”区域，下方有个Download圆角按钮，这是你的个人证书，下载下来。再下面一行，有一句“If you do not have the WWDR intermediate certificate installed, [click here to download now](https://developer.apple.com/certificationauthority/AppleWWDRCA.cer)”，这个是苹果的公共证书，也下下来。
+
+双击下载回来的证书，装你的个人证书时（文件名ios_development.cer），会提示你输入密码，这是【钥匙串访问工具】再问你要你的Mac OS账号密码（相当于linux里面的sudo），不是Apple ID的密码，不要搞错了。
+
+
+#### 将设备注册到Provisioning Portal
+
+- 打开XCode，从Xcode的Window菜单中找到Organizer，打开之（Shift Command 2）。
+- 把iOS设备连上电脑，Organizer会自动识别出你的设备，并显示在左侧边栏。
+- 在Organizer左侧边栏找到你的设备，右键，点击“Add Device to Provisioning Portal”，然后等Organizer提示你操作成功即可。（选中设备后，右边设备详情区域会显示一个按钮“Use for Development”，点它也可以）。
+
+#### 到iOS真机上运行测试版程序
+回到XCode主界面，在Stop按钮（Run按钮右边那个黑色正方形按钮）右边，有个下拉菜单，显示着 “ToolBarSearch > iPhone 5.0 Simulator” （即 你的应用英文名 > 当前选中的调试 ），点击这个下拉菜单，选中你的真机设备名，再按“Run”按钮，Xcode就会自动把当前正在编辑开发的应用编译并安装到真机上测试啦！
+
 
 ## 阅读应用代码
 
