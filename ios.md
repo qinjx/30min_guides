@@ -569,7 +569,7 @@ Cocoa Touch大量使用Delegate（委派）设计模式。
 
 #### 输入法和键盘
 ##### 输入中文
-手机上特有的输入法（比如刀宫格输入法）不能模拟。模拟器默认的iOS软键盘只有英文输入，在测试应用的时候，我们要用到中文，有两个办法：
+手机上特有的输入法（比如九宫格输入法）不能模拟。模拟器默认的iOS软键盘只有英文输入，在测试应用的时候，我们要用到中文，有两个办法：
 
 - 使用剪贴板，在Mac OS里复制，再到模拟器运行的应用中的输入框上长按鼠标（模拟手指长按）3秒以上，等弹出“粘贴”的时候选择之，即可。
 - 在模拟器里，按Home键，找到Setting那个App icon（不是Mac OS顶部的模拟器菜单啊，那里没有Setting的），打开被模拟iOS设备的设置，依次点击”General - Keyboard - International Keyboards - Add New Keyboard…”，加个中文键盘，以后就可以使用被模拟iOS设备软件盘输入中文了，跟在iPhone/iPad真机上一样。
@@ -601,12 +601,12 @@ Mac电脑有摄像头，但Mac OS没有设计API给iOS模拟器调用，所以�
 
 将未提交App Store审核通过的应用安装到iOS设备上测试，有三种办法：
 
-- 加入苹果的Developer Program，成为付费会员，有了这个付费会员资格，就可以直接在XCode中点击”Run”将刚刚改过的代码编译打包安装到开发测试用的iOS设备上。
+- 加入苹果的Developer Program，成为付费会员，有了这个付费会员资格，就可以直接在XCode中点击”Run”将刚刚改过的代码编译打包安装到开发测试用的iOS设备上。在iOS真机上操作被测试的程序能激活Xcode中设置的断点。
 - 越狱iOS设备。将iPhone和iPad越狱后，可以通过SSH直接上传XCode编译好的ipa包（一个iOS App本质上就是一个ipa包）。
 - 越狱的iOS设备，配合破解过的XCode，甚至可以实现和付费开发者计划一样的功能：在XCode上点击”Run”，就自动编译安装到iOS设备上去运行了
 - 企业部署方案。就像阿里巴巴的轩辕剑一样（http://xyj.im），用iPhone/iPad访问这个网址，点击里面的轩辕剑链接就可以安装轩辕剑这个应用了，显然，这个用来给QA团队做测试还行，开发人员用来实时自测就效率太低了。
 
-破解XCode是违法行为（越狱是合法的），而且挑版本挑得厉害，不是所有XCode版本都能破解，也不是所有XCode的破解版都能和越狱的iOS配合好。越狱+SSH上传跟企业部署一样效率低，最适合开发实时测试的就是第一个正规途径了。下面重点讲这个：
+破解XCode是违法行为（越狱是合法的），而且挑版本挑得厉害，不是所有XCode版本都能破解，也不是所有XCode的破解版都能和越狱的iOS配合好。越狱+SSH上传跟企业部署一样效率低（部署效率低，无法激活Xcode中和断点），只能用于QA验收，不适合开发自测。综上所述，最适合开发实时测试的就是第一个正规途径了。下面重点讲这个：
 
 #### 拥有一个开发者账号
 苹果的Developer Program分为个人开发者和公司开发者，分别是每年99美元和每年299美元，分别可以注册100台和500台苹果测试设备。这个台数限制在一个付费年度内不会清空，比如说，2013年4月1日付费成功的，付费会员资格在2014年3月31日之前有效，这期间，注册一台就少一个名额，哪怕这个设备注册进来用了之后一分钟马上又删掉了，减少的这个名额也不会回来。
@@ -626,7 +626,7 @@ Mac电脑有摄像头，但Mac OS没有设计API给iOS模拟器调用，所以�
 
 页面上有一个“Your Certificate”区域，下方有个Download圆角按钮，这是你的个人证书，下载下来。再下面一行，有一句“If you do not have the WWDR intermediate certificate installed, [click here to download now](https://developer.apple.com/certificationauthority/AppleWWDRCA.cer)”，这个是苹果的公共证书，也下下来。
 
-双击下载回来的证书，装你的个人证书时（文件名ios_development.cer），会提示你输入密码，这是【钥匙串访问工具】再问你要你的Mac OS账号密码（相当于linux里面的sudo），不是Apple ID的密码，不要搞错了。
+双击下载回来的证书，装你的个人证书时（文件名ios_development.cer），会提示你输入密码，这是【钥匙串访问工具】在问你要你的Mac OS账号密码（相当于linux里面的sudo），不是Apple ID的密码，不要搞错了。
 
 
 #### 将设备注册到Provisioning Portal
