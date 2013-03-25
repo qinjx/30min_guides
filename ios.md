@@ -54,7 +54,7 @@ Xcode可以在苹果官网免费下载：[Xcode下载地址](https://developer.a
 
 
 ## 从改一个现成的应用开始吧
-学一门新软件开发技能，能够第一时间做出一个可运行的产品非常重要，有助于给自己下面激励，我上大学的时候，有很多次想学一门新语言，往往花了半个月，还沉浸在数据类型和语法字典里，连第一个Hello World都没做出来。
+学一门新软件开发技能，能够第一时间做出一个可运行的产品非常重要，有助于给自己正面激励，我上大学的时候，有很多次想学一门新语言，往往花了半个月，还沉浸在数据类型和语法字典里，连第一个Hello World都没做出来。
 
 这一次，就让我们从改一个现成的应用开始吧。
 
@@ -111,7 +111,7 @@ open -a是mac os的系统命令，除了iOS项目，别的项目也可以这样�
 ## Objective-C
 Objective-C是苹果应用软件（包括苹果电脑上的Mac OS App和移动设备上的iOS App）的开发语言。它是一种面向对象的编程语言。
 
-苹果公司还提供了一个软件（Interface Builder，简称IB）用于可视化的界面制作，就像用Dreamweaver做网页，或者像Visual Basic做桌面软件一样。但这篇文档不讲IB，只讲Objective-C，因为：
+苹果公司还提供了一个软件，叫Interface Builder，简称IB，用于可视化的界面制作，就像用Dreamweaver做网页，或者像Visual Basic做桌面软件一样。后来IB就整合进了Xcode，成了Xcode的一部分。这篇文档不讲IB，只讲Objective-C，因为：
 
 - 基本上，每一本讲iOS开发的书（纸质书、电子书），都有大量的截图一步一步教如何用IB开发iOS应用，而讲Objective-C开发应用的书却没有那么多。
 - IB可以用来直观方便地画界面、设置控件属性、建立代码与控件的联系，但后台的业务逻辑和数据处理仍然要靠Objective-C，可见，不管用不用IB，Objective-C都是绕不过去的。
@@ -220,9 +220,8 @@ Objective-C的类分为接口定义和实现两个部分。接口定义（Interf
 
 - Objective-C里，interface有且只有一个实现，Java的interface可以有0-N个实现
 - Objective-C里，interface可以定义成员属性，Java里不可以
-- Objective-C里，interface可以定义私有方法，Java里的interface定义的方法都是public的
 
-和Java里的Interface概念相似的是Protocol，下文会讲到。
+在Objective-C里，和Java的Interface概念相似的是Protocol，下文会讲到。
 
 请看示例：
 
@@ -282,7 +281,7 @@ Implementation
 #### 私有方法和公开方法
 写在.h头文件里的方法都是公开的，Objective-C里没有私有方法的概念（没有你说个蛋啊，哈哈哈哈）。
 
-要实现私有方法的效果只能借助Category，知道有这么回事就可以了，这里不深讲。
+官方并没有提到Objective-C怎么实现私有方法，我查阅了stackoverflow，统一的答案是，要实现私有方法的效果只能借助Category，不过，根据我的测试，即使采用了Category，也不能阻止外部的代码调用这个“私有方法”，只是Xcode不支持“私有方法”的自动完成，并会有警告提示，运行的时候，还是会成功的。各位看官知道有这么回事就可以了，这里不深讲。
 
 #### 变量和属性
 
@@ -339,7 +338,7 @@ selector就是一个方法指针，类似PHP里的动态方法名：
 		
 		public function test() {
 			$fun_name = "sayHello";
-			$this->$fun_nam();
+			$this->$fun_name();
 		}
 	}
 
@@ -358,7 +357,9 @@ selector就是一个方法指针，类似PHP里的动态方法名：
 		btn.frame = _frame; 
 		btn.tag = 1;
 		btn.backgroundColor = [UIColor clearColor];
-		[btn addTarget: self action: @selector(downButtonPressed:) forControlEvents: UIControlEventTouchUpInside];//当这个按钮被按下时，触发downButtonPressed:方法
+		[btn addTarget: self
+			 action: @selector(downButtonPressed:)
+			 forControlEvents: UIControlEventTouchUpInside];//当这个按钮被按下时，触发downButtonPressed:方法
 	}
 	@end
 
@@ -372,7 +373,9 @@ selector就是一个方法指针，类似PHP里的动态方法名：
 		[ds reload];
 		_items = ds.items;
 		
-		[self performSelector:@selector(refreshTable) withObject:self afterDelay:0.5];//延迟0.5秒调用refreshTable方法
+		[self performSelector: @selector(refreshTable)
+			  withObject: self
+			  afterDelay: 0.5];//延迟0.5秒调用refreshTable方法
 	}
 	
 	-(void)refreshTable
@@ -381,7 +384,7 @@ selector就是一个方法指针，类似PHP里的动态方法名：
 	}
 	@end
 
-这个例子中，获取数据源是通过ASIHTTP组件异步调用服务端HTTP接口，refreshTable要用到数据源返回回来的数据，如果不延迟0.5秒，就会立刻执行，执行的时候页面就是空白了（这时候数据还在路上呢）。
+这个例子中，获取数据源是通过ASIHTTP组件异步调用服务端HTTP接口，refreshTable要用到数据源返回回来的数据，如果不延迟0.5秒，就会立刻执行，执行的时候数据还在路上呢，页面就要变空白了。
 
 ### 继承
 继承是写在Interface定义里面的。语法为：子类名在左，父类名在右，中间用冒号分隔。
@@ -568,7 +571,7 @@ Cocoa Touch大量使用Delegate（委派）设计模式。
 - 双击和单击模拟器的Home键也等于双击和单击真机的Home键
 
 ##### 多指手势
-多指手势比较复杂，黑苹果是不能模拟的。在白苹果上可以模拟简单的双指手势，白苹果的触控板天然支持多指触摸，但要定位到模拟器的区域再响应多指手势就需要借助一些额外的键啦：
+多指手势比较复杂，在白苹果笔记本上可以模拟简单的双指手势，白苹果的触控板天然支持多指触摸，但要定位到模拟器的区域再响应多指手势就需要借助一些额外的键啦：
 
 - 按住Option键，再用两个手指去操作触摸板，可模拟双指拖动、旋转
 - 按住Option+Shift，可模拟双指合拢
@@ -589,7 +592,7 @@ Cocoa Touch大量使用Delegate（委派）设计模式。
 - 要切换模拟器中iOS的中英文输入法，也只能按iOS设备软键盘上的小地球图标，按Mac电脑上的Command+空格键是不行的。
 
 #### 地理位置
-Mac电脑没有定位用的硬件（虽然WiFi也可以独立定位，就像iPad WiFi版一样）和软件基础，因此模拟器不能自动获得当前的地理位置，不能用模拟器测试定位功能。
+但Mac电脑没有定位用的硬件（GPS）和软件基础，因此模拟器不能自动获得当前的地理位置，不能用模拟器测试定位功能。（注意，虽然WiFi也可以独立定位——iPad WiFi版没有GPS也可以定位，但Mac电脑的WiFi不具备定位相关的软件）
 
 要在模拟器里测试依赖地理位置的功能（如”我附近的xx”），可以手工指定一个经纬度给模拟器，方法：在Mac电脑顶部的模拟器菜单，点击”调试 - 位置 - 自定位置”，会弹出一个对话框，在弹出的框内填入经纬度即可。
 
@@ -610,9 +613,9 @@ Mac电脑有摄像头，但Mac OS没有设计API给iOS模拟器调用，所以�
 - 加入苹果的Developer Program，成为付费会员，有了这个付费会员资格，就可以直接在XCode中点击”Run”将刚刚改过的代码编译打包安装到开发测试用的iOS设备上。在iOS真机上操作被测试的程序能激活Xcode中设置的断点。
 - 越狱iOS设备。将iPhone和iPad越狱后，可以通过SSH直接上传XCode编译好的ipa包（一个iOS App本质上就是一个ipa包）。
 - 越狱的iOS设备，配合破解过的XCode，甚至可以实现和付费开发者计划一样的功能：在XCode上点击”Run”，就自动编译安装到iOS设备上去运行了
-- 企业部署方案。就像阿里巴巴的轩辕剑一样（http://xyj.im），用iPhone/iPad访问这个网址，点击里面的轩辕剑链接就可以安装轩辕剑这个应用了，显然，这个用来给QA团队做测试还行，开发人员用来实时自测就效率太低了。
+- 企业部署方案。就像阿里巴巴的[轩辕剑](http://xyj.im)一样，用iPhone/iPad访问这个网址，点击里面的轩辕剑链接就可以安装轩辕剑这个应用了。
 
-破解XCode是违法行为（越狱是合法的），而且挑版本挑得厉害，不是所有XCode版本都能破解，也不是所有XCode的破解版都能和越狱的iOS配合好。越狱+SSH上传跟企业部署一样效率低（部署效率低，无法激活Xcode中和断点），只能用于QA验收，不适合开发自测。综上所述，最适合开发实时测试的就是第一个正规途径了。下面重点讲这个：
+破解XCode是违法行为（越狱是合法的），而且挑版本挑得厉害，不是所有XCode版本都能破解，也不是所有XCode的破解版都能和越狱的iOS配合好。越狱+SSH上传跟企业部署一样效率低（部署效率低，无法激活Xcode中的断点），只能用于QA验收，不适合开发自测。综上所述，最适合开发实时测试的就是第一个正规途径了。下面重点讲这个：
 
 #### 拥有一个开发者账号
 苹果的Developer Program分为个人开发者和公司开发者，分别是每年99美元和每年299美元，分别可以注册100台和500台苹果测试设备。这个台数限制在一个付费年度内不会清空，比如说，2013年4月1日付费成功的，付费会员资格在2014年3月31日之前有效，这期间，注册一台就少一个名额，哪怕这个设备注册进来用了之后一分钟马上又删掉了，减少的这个名额也不会回来。
