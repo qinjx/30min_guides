@@ -1,7 +1,7 @@
 # iOS开发60分钟入门
 本文面向已有其它语言（如Java，C，PHP，Javascript）编程经验的iOS开发初学者，初衷在于让我的同事一小时内了解如何开始开发iOS App，学习目标包括：
 
-* 能使用XCode IDE、模拟器
+* 能使用Xcode IDE、模拟器
 * 能修改、调试已有iOS App
 * 能在已有应用内创建新模块
 * 能创建新应用
@@ -15,7 +15,7 @@
 
 * 一门语言：Objective-C
 * 一个框架：Cocoa Touch
-* 一个IDE：XCode
+* 一个IDE：Xcode
 
 初学脚本语言通常不会来绘制图形界面、与人交互，iOS如果不做图形界面，像脚本语言一样处理文本操作数据库，就没啥意思了。
 
@@ -43,10 +43,10 @@
 - 黑苹果系统多少都存在一些使用上的问题，像驱动Bug啦、待机恢复蓝屏啦、上网浏览有问题啦
 - 黑苹果不能随意升级，可能升级一次safari就导致整个系统崩溃了
 
-上面这些虽然不会直接影响xcode写代码、模拟器测试，但写着写着想上网查个东西的时候，safari不能翻页，确实挺影响心情的。所以，钱包允许的前提下，还是搞个苹果电脑省心一些。
+上面这些虽然不会直接影响Xcode写代码、模拟器测试，但写着写着想上网查个东西的时候，safari不能翻页，确实挺影响心情的。所以，钱包允许的前提下，还是搞个苹果电脑省心一些。
 
 ### Xcode 和 模拟器
-Xcode可以在苹果官网免费下载：[Xcode下载地址](https://developer.apple.com/xcode/index.php)
+Xcode可以在苹果官网免费下载：[Xcode下载地址](https://developer.apple.com/Xcode/index.php)
 
 安装Xcode时会自动安装iOS SDK和模拟器。
 
@@ -68,15 +68,15 @@ Xcode可以在苹果官网免费下载：[Xcode下载地址](https://developer.a
 ### 打开
 有三种方式可以打开一个iOS Project
 #### 双击project文件
-打开Finder，进入刚刚下载解压的ToolBarSearch目录，找到ToolBarSearch.xcodeproj文件，双击之，XCode会自动启动，并打开这个项目
+打开Finder，进入刚刚下载解压的ToolBarSearch目录，找到ToolBarSearch.Xcodeproj文件，双击之，Xcode会自动启动，并打开这个项目
 
-#### 在XCode里选择Project打开
-- 在XCode没启动的情况下（如果XCode已经启动了，就先按Command Q退出），启动XCode，会弹出“Welcome to XCode”的欢迎页，点击左下角的“Open Other”按钮，找到ToolBarSearch目录，双击ToolBarSearch目录，或者双击ToolBarSearch.xcodeproj文件都可以
+#### 在Xcode里选择Project打开
+- 在Xcode没启动的情况下（如果Xcode已经启动了，就先按Command Q退出），启动Xcode，会弹出“Welcome to Xcode”的欢迎页，点击左下角的“Open Other”按钮，找到ToolBarSearch目录，双击ToolBarSearch目录，或者双击ToolBarSearch.Xcodeproj文件都可以
 
 - 如果Xcode处于打开状态，可以点击其菜单栏的File -> Open，或者File -> Open Recent，然后再选择要打开的项目
 
 #### 通过命令行打开
-在Mac OS 10.8以前，有些目录（例如/var/private/tmp），在Finder和XCode的File > Open对话框中，点击鼠标是找不到的，这时候就要通过命令行终端来打开了。
+在Mac OS 10.8以前，有些目录（例如/var/private/tmp），在Finder和Xcode的File > Open对话框中，点击鼠标是找不到的，这时候就要通过命令行终端来打开了。
 
 打开终端，执行：
 
@@ -86,7 +86,7 @@ Xcode可以在苹果官网免费下载：[Xcode下载地址](https://developer.a
 open -a是mac os的系统命令，除了iOS项目，别的项目也可以这样打开。
 
 ### 运行刚下载的应用
-点击XCode左上角的Run按钮（或者同时按下Comman和R键），XCode会编译源码并在模拟器中运行这个应用。
+点击Xcode左上角的Run按钮（或者同时按下Comman和R键），Xcode会编译源码并在模拟器中运行这个应用。
 
 编译成功会在屏幕上淡淡地显示“Build Succeeded”。反之，失败就显示“Build Failed”且不启动模拟器。
 
@@ -94,7 +94,7 @@ open -a是mac os的系统命令，除了iOS项目，别的项目也可以这样�
 ### 修改
 在模拟器上看到“Performed search using…”了吧，下面我们改掉它。
 
-- 在XCode左上角的Run按钮下方，有一排小按钮，从左到右第三个是一个放大镜图标，鼠标移上去会显示“Show the Search Navigator”，点一下它，打开搜索界面，在它下方出现的Find输入框中输入“performed”
+- 在Xcode左上角的Run按钮下方，有一排小按钮，从左到右第三个是一个放大镜图标，鼠标移上去会显示“Show the Search Navigator”，点一下它，打开搜索界面，在它下方出现的Find输入框中输入“performed”
 
 - 搜索结果只有一条：ToolbarSearchViewController.m，点文件名下方被高亮的“Performed”字串，右侧代码编辑区会自动打开这个文件，并滚动屏幕，使包含“Performed”的这一行出现在编辑区的中间。
 
@@ -143,7 +143,7 @@ Objective-C的面向对象语法源自SmallTalk，消息传递（Message Passing
 
 	[obj undefinedMethod];
 
-在代码里调用没定义的方法（这是Java世界的习惯说法啊，专业的叫法是，给obj对象传递它无法处理的消息），XCode会警告，但编译能成功，运行的时候会出错。它会输出这样一个错误：
+在代码里调用没定义的方法（这是Java世界的习惯说法啊，专业的叫法是，给obj对象传递它无法处理的消息），Xcode会警告，但编译能成功，运行的时候会出错。它会输出这样一个错误：
 
 	Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: '-[NSObject undefinedMethod]: unrecognized selector sent to instance 0x8871710'
 
@@ -533,7 +533,7 @@ Cocoa Touch大量使用Delegate（委派）设计模式。
 ### WebView
 ### 导航条
 
-## XCode
+## Xcode
 
 ### 运行
 快捷键：Comman R
@@ -547,7 +547,7 @@ Cocoa Touch大量使用Delegate（委派）设计模式。
 
 ## 模拟器和真机测试
 ### 模拟器测试
-在XCode中打开你的项目，在Xcode顶部工具栏的Stop按钮（Run按钮右边那个黑色正方形按钮）右边，有个下拉菜单，显示着 “ToolBarSearch > iPhone 5.0 Simulator” （即 你的应用英文名 > 当前选中的调试 ），点击这个下拉菜单，选中iPhone 5.0 Simulator（这里的5.0是指iOS版本，不是iPhone5的意思，如果你的项目是iPad应用，请选iPad 5.0 Simulator），再按“Run”按钮，Xcode就会自动把当前正在编辑开发的应用编译并安装到模拟器上。
+在Xcode中打开你的项目，在Xcode顶部工具栏的Stop按钮（Run按钮右边那个黑色正方形按钮）右边，有个下拉菜单，显示着 “ToolBarSearch > iPhone 5.0 Simulator” （即 你的应用英文名 > 当前选中的调试 ），点击这个下拉菜单，选中iPhone 5.0 Simulator（这里的5.0是指iOS版本，不是iPhone5的意思，如果你的项目是iPad应用，请选iPad 5.0 Simulator），再按“Run”按钮，Xcode就会自动把当前正在编辑开发的应用编译并安装到模拟器上。
 
 在模拟器上操作时，如果执行过程中遇到了你在Xcode里设置的断点，模拟器会暂停运行，并将当前活动窗口切换回Xcode，供你调试。
 
@@ -610,12 +610,12 @@ Mac电脑有摄像头，但Mac OS没有设计API给iOS模拟器调用，所以�
 
 将未提交App Store审核通过的应用安装到iOS设备上测试，有三种办法：
 
-- 加入苹果的Developer Program，成为付费会员，有了这个付费会员资格，就可以直接在XCode中点击”Run”将刚刚改过的代码编译打包安装到开发测试用的iOS设备上。在iOS真机上操作被测试的程序能激活Xcode中设置的断点。
-- 越狱iOS设备。将iPhone和iPad越狱后，可以通过SSH直接上传XCode编译好的ipa包（一个iOS App本质上就是一个ipa包）。
-- 越狱的iOS设备，配合破解过的XCode，甚至可以实现和付费开发者计划一样的功能：在XCode上点击”Run”，就自动编译安装到iOS设备上去运行了
+- 加入苹果的Developer Program，成为付费会员，有了这个付费会员资格，就可以直接在Xcode中点击”Run”将刚刚改过的代码编译打包安装到开发测试用的iOS设备上。在iOS真机上操作被测试的程序能激活Xcode中设置的断点。
+- 越狱iOS设备。将iPhone和iPad越狱后，可以通过SSH直接上传Xcode编译好的ipa包（一个iOS App本质上就是一个ipa包）。
+- 越狱的iOS设备，配合破解过的Xcode，甚至可以实现和付费开发者计划一样的功能：在Xcode上点击”Run”，就自动编译安装到iOS设备上去运行了
 - 企业部署方案。就像阿里巴巴的[轩辕剑](http://xyj.im)一样，用iPhone/iPad访问这个网址，点击里面的轩辕剑链接就可以安装轩辕剑这个应用了。
 
-破解XCode是违法行为（越狱是合法的），而且挑版本挑得厉害，不是所有XCode版本都能破解，也不是所有XCode的破解版都能和越狱的iOS配合好。越狱+SSH上传跟企业部署一样效率低（部署效率低，无法激活Xcode中的断点），只能用于QA验收，不适合开发自测。综上所述，最适合开发实时测试的就是第一个正规途径了。下面重点讲这个：
+破解Xcode是违法行为（越狱是合法的），而且挑版本挑得厉害，不是所有Xcode版本都能破解，也不是所有Xcode的破解版都能和越狱的iOS配合好。越狱+SSH上传跟企业部署一样效率低（部署效率低，无法激活Xcode中的断点），只能用于QA验收，不适合开发自测。综上所述，最适合开发实时测试的就是第一个正规途径了。下面重点讲这个：
 
 #### 拥有一个开发者账号
 苹果的Developer Program分为个人开发者和公司开发者，分别是每年99美元和每年299美元，分别可以注册100台和500台苹果测试设备。这个台数限制在一个付费年度内不会清空，比如说，2013年4月1日付费成功的，付费会员资格在2014年3月31日之前有效，这期间，注册一台就少一个名额，哪怕这个设备注册进来用了之后一分钟马上又删掉了，减少的这个名额也不会回来。
@@ -640,12 +640,12 @@ Mac电脑有摄像头，但Mac OS没有设计API给iOS模拟器调用，所以�
 
 #### 将设备注册到Provisioning Portal
 
-- 打开XCode，从Xcode的Window菜单中找到Organizer，打开之（Shift Command 2）。
+- 打开Xcode，从Xcode的Window菜单中找到Organizer，打开之（Shift Command 2）。
 - 把iOS设备连上电脑，Organizer会自动识别出你的设备，并显示在左侧边栏。
 - 在Organizer左侧边栏找到你的设备，右键，点击“Add Device to Provisioning Portal”，然后等Organizer提示你操作成功即可。（选中设备后，右边设备详情区域会显示一个按钮“Use for Development”，点它也可以）。
 
 #### 到iOS真机上运行测试版程序
-回到XCode主界面，在Stop按钮（Run按钮右边那个黑色正方形按钮）右边，有个下拉菜单，显示着 “ToolBarSearch > iPhone 5.0 Simulator” （即 你的应用英文名 > 当前选中的调试 ），点击这个下拉菜单，选中你的真机设备名，再按“Run”按钮，Xcode就会自动把当前正在编辑开发的应用编译并安装到真机上测试啦！
+回到Xcode主界面，在Stop按钮（Run按钮右边那个黑色正方形按钮）右边，有个下拉菜单，显示着 “ToolBarSearch > iPhone 5.0 Simulator” （即 你的应用英文名 > 当前选中的调试 ），点击这个下拉菜单，选中你的真机设备名，再按“Run”按钮，Xcode就会自动把当前正在编辑开发的应用编译并安装到真机上测试啦！
 
 ## 阅读应用代码
 
@@ -657,7 +657,7 @@ Mac电脑有摄像头，但Mac OS没有设计API给iOS模拟器调用，所以�
 
 ### SVN操作含有@符号的文件
 
-### XCode中的代码结构与操作系统上的文件系统并不一致
+### Xcode中的代码结构与操作系统上的文件系统并不一致
 
 ### iPhone 5适配
 
