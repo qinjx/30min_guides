@@ -622,9 +622,10 @@ Mac电脑有摄像头，但Mac OS没有设计API给iOS模拟器调用，所以�
 
 在交钱之前，最好问一下，周围的同事，有没有已经交了钱的。如果有，你只需要注册一个免费的Apple ID（就是你在App Store安装软件用的Apple ID），请他发个邀请邮件给你，把你的Apple ID加入他的团队就可以了，苹果会认为你们两个人是一个团队的，你们分别用自己的账号，共享100台设备的限额，这是合法的。
 
-#### 安装证书
+#### 安装证书和私钥
+##### 证书
 不想看下面各种点击各种页面跳转的直接用浏览器访问[证书管理](https://developer.apple.com/ios/manage/certificates/team/index.action)，你要登录你就用Apple ID登录（前提是交过钱，或者找交了钱的人把你加入团队了）。
-
+>
 不嫌烦，或者想知道下次没我这个文档的时候怎么进证书管理吗？按这个步骤操作：
 
 - 进入 [苹果开发者中心](https://developer.apple.com/)
@@ -635,7 +636,10 @@ Mac电脑有摄像头，但Mac OS没有设计API给iOS模拟器调用，所以�
 
 页面上有一个“Your Certificate”区域，下方有个Download圆角按钮，这是你的个人证书，下载下来。再下面一行，有一句“If you do not have the WWDR intermediate certificate installed, [click here to download now](https://developer.apple.com/certificationauthority/AppleWWDRCA.cer)”，这个是苹果的公共证书，也下下来。
 
-双击下载回来的证书，装你的个人证书时（文件名ios_development.cer），会提示你输入密码，这是【钥匙串访问工具】在问你要你的Mac OS账号密码（相当于linux里面的sudo），不是Apple ID的密码，不要搞错了。
+双击下载回来的证书，装证书时，会提示你输入密码，这是【钥匙串访问工具】在问你要你的Mac OS账号开机密码（相当于linux里面的sudo），不是Apple ID的密码，不要搞错了。
+
+##### 安装私钥
+如果你是和其它同事公用的账号，让他给你一个私钥即可，就是一个扩展名为p12的文件，双击之，钥匙串访问会自动出来，需要你输入一个密码，这个密码问给你p12文件的人要，不是你的Mac OS系统开机密码，也不是你的Apple ID密码。
 
 
 #### 将设备注册到Provisioning Portal
