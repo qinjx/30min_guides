@@ -651,6 +651,18 @@ Mac电脑有摄像头，但Mac OS没有设计API给iOS模拟器调用，所以�
 #### 到iOS真机上运行测试版程序
 回到Xcode主界面，在Stop按钮（Run按钮右边那个黑色正方形按钮）右边，有个下拉菜单，显示着 “ToolBarSearch > iPhone 5.0 Simulator” （即 你的应用英文名 > 当前选中的调试 ），点击这个下拉菜单，选中你的真机设备名，再按“Run”按钮，Xcode就会自动把当前正在编辑开发的应用编译并安装到真机上测试啦！
 
+#### 发布到App Store
+
+#### 打IPA包
+IPA包本质上是一个ZIP压缩包，只不过它有着特殊的目录结构，扩展名是ipa，制作方法如下：
+
+- 在Xcode中Build项目，快捷键Command B
+- 在左侧项目导航器中，展开Products文件夹，找到你要打包的应用，你的应用名.app，右键，选择show in finder
+- 到Finder中Copy这个.app目录（选中，按Command C），复制到一个你新建的名为Payload（区分大小写）的文件夹中
+- 找到你的应用Logo，即一个512 * 512像素的PNG文件，copy到与Payload一起（与Payload并列，不要放进Payload了），并重命名为iTunesArtwork（区分大小写，没有扩展名）
+- 将Payload目录、ItunesArtwork文件打成一个zip包，并更改扩展名为ipa
+- 双击这个ipa文件，会用iTunes打开，如果打开成功，且在iTunes里有应用Logo显示，就成功了
+
 ## 阅读应用代码
 
 ## 从头新建一个应用：Hello World
