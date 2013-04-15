@@ -661,7 +661,10 @@ IPA包本质上是一个ZIP压缩包，只不过它有着特殊的目录结构�
 - 到Finder中Copy这个.app目录（选中，按Command C），复制到一个你新建的名为Payload（区分大小写）的文件夹中
 - 找到你的应用Logo，即一个512 * 512像素的PNG文件，copy到与Payload一起（与Payload并列，不要放进Payload了），并重命名为iTunesArtwork（区分大小写，没有扩展名）
 - 将Payload目录、ItunesArtwork文件打成一个zip包，并更改扩展名为ipa
-- 双击这个ipa文件，会用iTunes打开，如果打开成功，且在iTunes里有应用Logo显示，就成功了
+- 双击这个ipa文件，会用iTunes打开，如果打开成功，且在iTunes里有应用Logo显示，就成功了                
+
+#### 批量自动打包
+除App Store外，还有许多其它的iOS应用市场（如91助手，同步推等等），如果一个应用需要发布到很多个应用市场，且他们的代码略有不同（比如说，统计代码不同），按上述方法手工修改源码再打包，再还原，比较容易出错。好消息是，Xcode是有命令行的，我们可以写一个shell脚本，先用se自动修改源码，再调用Xcode的命令行来编译以得到your——app.app目录，最后调用zip、mv等命令把上一个章节讲的ipa打包动作自动执行。
 
 ## 阅读应用代码
 
@@ -669,11 +672,29 @@ IPA包本质上是一个ZIP压缩包，只不过它有着特殊的目录结构�
 
 ## 其它
 ### 代码里的控件尺寸
-是指Point，iPhone 4和iPhone 3GS的Point数是一样的，尽管iPhone 4的分辨率是3GS的2倍。
+iOS App里的控件尺寸和字体大小都是指Point，Retina设备（iPhone 4，4S，5；the new Pad）和非Retina设备（iPhone 3GS，iPad，iPad 2）的Point数是一样的，尽管iPhone 4的分辨率是3GS的2倍。比如说，10point在Retina设备里是20 pixel，在非Retina设备（iPhone 3G）上则是10 pixel。
+
+项目成员间交流时，应使用Point，不要使用pixel。
 
 ### SVN操作含有@符号的文件
+iOS应用中经常出现xxxx@2x.png这样的文件名,它们是给retina设备用的高分辨率大图，用svn命令行操作它们的时候会被@符号干扰,解决方案是在svn命令末尾加上一个@符号,如:
+	
+	svn del icon@2x.png@
+	svn info Default@2x.png@
+ 
+如果一次移动了几十个png文件再svn commit的,可以用shell批处理:
+
+	svn status | awk '($1=="!"){print $2}' | grep -v @ | xargs svn del
+上面这个命令是将文件名不包含@符号的,且已经不在硬盘上的文件从svn version controll中删掉
+
+	for file in `svn status | awk '($1=="!"){print $2}' `; do svn del $file"@"; done     
+
+上面这个命令是将文件名包含@符号的,且已经不在硬盘上的文件从svn version controll中删掉
+ 
+svn add同上, 如法炮制即可.
 
 ### Xcode中的代码结构与操作系统上的文件系统并不一致
+推荐在Finder里建好目录再到Xcode的Project Navigator中点击“Add Files to”添加到项目中
 
 ### iPhone 5适配
 
