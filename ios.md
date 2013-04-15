@@ -26,7 +26,7 @@
 
 
 ### Mac OS
-拥有Mac OS环境最简单的方法是找一台苹果电脑，包括iMac, MacBook Pro, MacBook Air, Mac Mini，但不包括苹果的移动设备（iPod Touch, iPhone, iPad, iPad Mini，它们运行的是iOS系统，不是Mac OS），苹果电脑在出厂的时候就会预装Mac OS，目前比较主流的版本是Mac OS X 10.6、Max OS X 10.8。
+拥有Mac OS环境最简单的方法是找一台苹果电脑，包括iMac, MacBook Pro, MacBook Air, Mac Mini，但不包括苹果的移动设备（iPod Touch, iPhone, iPad, iPad Mini，它们运行的是iOS系统，不是Mac OS），苹果电脑在出厂的时候就会预装Mac OS，目前最新版本是Mac OS X 10.8，主流的版本还有Mac OS X 10.6、Max OS X 10.7。
 
 如果囊中羞涩，可以借一台，或者上淘宝买个二手的。
 
@@ -697,6 +697,7 @@ svn add同上, 如法炮制即可.
 推荐在Finder里建好目录再到Xcode的Project Navigator中点击“Add Files to”添加到项目中
 
 ### iPhone 5适配
+iPhone 5与之前的iPhone不一样，采用了4寸Retina屏，所以它的Point数变成了320 * 568 points
 
 ### 开源代码
 * [Apple官方的Sample Code](https://developer.apple.com/library/ios/navigation/#section=Resource%20Types&topic=Sample%20Code)
