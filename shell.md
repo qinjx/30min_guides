@@ -1,6 +1,7 @@
-Shell编程30分钟入门
-=================
+Shell脚本编程30分钟入门
+====================
 ## 什么是Shell脚本
+### 示例
 看个例子吧：
 
 	#!/bin/sh
@@ -8,12 +9,26 @@ Shell编程30分钟入门
 	mkdir shell_tut
 	cd shell_tut
 	
-	for ((i=0; i<10; i++))
-	do
+	for ((i=0; i<10; i++)); do
 		touch test_$i.txt
 	done
 
-拆开来，每一行你应该都眼熟，是的，这就是shell脚本。
+### 示例解释
+
+- 第1行：指定脚本解释器，这里是用/bin/sh做解释器的
+- 第2行：切换到当前用户的home目录
+- 第3行：创建一个目录shell_tut
+- 第4行：切换到shell_tut目录
+- 第5行：循环条件，一共循环10次
+- 第6行：创建一个test_1…10.txt文件
+- 第7行：循环体结束
+
+cd, mkdir, touch都是系统自带的程序，一般在/bin或者/usr/bin目录下。for, do, done是sh脚本语言的关键字。
+
+### shell和shell脚本的概念
+shell是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。Ken Thompson的sh是第一种Unix Shell，Windows Explorer是一个典型的图形界面Shell。
+
+shell脚本（shell script），是一种为shell编写的脚本程序。业界所说的shell通常都是指shell脚本，但读者朋友要知道，shell和shell script是两个不同的概念。由于习惯的原因，简洁起见，本文出现的“shell编程”都是指shell脚本编程，不是指开发shell自身（如Windows Explorer扩展开发）。
 
 ## 环境
 shell编程跟java、php编程一样，只要有一个能编写代码的文本编辑器和一个能解释执行的脚本解释器就可以了。
@@ -35,7 +50,7 @@ windows出厂时没有内置shell解释器，需要自行安装，为了同时�
 
 ### 脚本解释器
 #### sh
-即Bourne shell，POSIX标准的shell解释器，它的二进制文件路径通常是/bin/sh，由Bell Labs开发。
+即Bourne shell，POSIX（Portable Operating System Interface）标准的shell解释器，它的二进制文件路径通常是/bin/sh，由Bell Labs开发。
 
 #### bash
 Bash是Bourne shell的替代品，属GNU Project，二进制文件路径通常是/bin/bash。业界通常混用bash、sh、和shell，比如你会经常在招聘运维工程师的文案中见到：熟悉Linux Bash编程，精通Shell编程。
@@ -63,8 +78,9 @@ Bash是Bourne shell的替代品，属GNU Project，二进制文件路径通常�
 编译型语言，只要有解释器，也可以用作脚本编程，如C shell是内置的（/bin/csh），Java有第三方解释器Jshell，Ada有收费的解释器AdaScript。
 
 ## 如何选择shell编程语言
+本文讲的是sh/bash，
 ### 熟悉 vs 陌生
-如果你已经掌握了一门编程语言（如PHP、Python、Java），建议你就直接使用这门语言编写脚本程序，虽然某些地方会有点啰嗦，但你能利用在这门语言领域里的经验（单元测试、单步调试、IDE、第三方类库）。
+如果你已经掌握了一门编程语言（如PHP、Python、Java、JavaScript），建议你就直接使用这门语言编写脚本程序，虽然某些地方会有点啰嗦，但你能利用在这门语言领域里的经验（单元测试、单步调试、IDE、第三方类库）。
 
 新增的学习成本很小，只要潌怎么使用shell解释器（Jshell、AdaScript）就可以了。
 
@@ -84,9 +100,35 @@ shell只定义了一个非常简单的编程语言，所以，如果你的脚本
 
 ## 第一个shell脚本
 ### 编写
+打开文本编辑器，新建一个文件，扩展名为sh（sh代表shell），扩展名并不影响脚本执行，见名知意就好，如果你用php写shell 脚本，扩展名就用php好了。
+
+输入一些代码，第一行一般是这样：
+
+	#!/bin/bash
+	#!/usr/bin/php
+
+“#!”是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行。
+
 ### 运行
+运行Shell脚本有两种方法：
+#### 作为可执行程序
 
+	chmod +x test.sh
+	./test.sh
 
+注意，一定要写成./test.sh，而不是test.sh，运行其它二进制的程序也一样，直接写test.sh，linux系统会去PATH里寻找有没有叫test.sh的，而只有/bin, /sbin, /usr/bin，/usr/sbin等在PATH里，你的当前目录通常不在PATH里，所以写成test.sh是会找不到命令的，要用./test.sh告诉系统说，就在当前目录找。
+
+通过这种方式运行bash脚本，第一行一定要写对，好让系统查找到正确的解释器。
+
+这里的"系统"，其实就是shell这个应用程序（想象一下Windows Explorer），但我故意写成系统，是方便理解，既然这个系统就是指shell，那么一个使用/bin/sh作为解释器的脚本是不是可以省去第一行呢？是的。
+
+#### 作为解释器参数
+这种运行方式是，直接运行解释器，其参数就是shell脚本的文件名，如：
+
+	/bin/sh test.sh
+	/bin/php test.php
+
+这种方式运行的脚本，不需要在第一行指定解释器信息，写了也没用。
 
 ## 变量
 ### 定义变量
@@ -116,6 +158,10 @@ shell只定义了一个非常简单的编程语言，所以，如果你的脚本
 	echo $your_name
 	
 这样写是合法的，但注意，第二次赋值的时候不能写$your_name="alibaba"，使用变量的时候才加美元符。
+
+## 注释
+
+## 字符串
 
 ## 管道
 
