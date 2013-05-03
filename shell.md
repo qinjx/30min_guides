@@ -3,30 +3,17 @@ Shell编程30分钟入门
 ## 什么是Shell脚本
 看个例子吧：
 
-	#!/bin/bash
-
-	#--------------------------------------------
-	# 这是一个自动打ipa的脚本
-	# 功能：自动为etao ios app打包，产出物为14个渠道的ipa包
-	# 特色：全自动打包，不需要输入任何参数
-	#--------------------------------------------
-
-	##### 用户配置区 开始 #####
-	#
-	#
-	# 项目根目录，推荐将此脚本放在项目的根目录，这里就不用改了
-	project_path=`pwd`
-
-	# app logo文件地址，就是那个512 * 512的PNG文件
-	app_logo_path=${project_path}/Classes/NewETao/images/icon/app_icon/Icon-512.png
-
-	# 打什么包，Release还是Debug，区分大小写
-	build_config=Release
-	#build_config=Debug
-
-	# 应用名，确保和Xcode里Product下的target_name.app名字一致
-	target_name="etao4iphone"
+	#!/bin/sh
+	cd ~
+	mkdir shell_tut
+	cd shell_tut
 	
+	for ((i=0; i<10; i++))
+	do
+		touch test_$i.txt
+	done
+
+拆开来，每一行你应该都眼熟，是的，这就是shell脚本。
 
 ## 环境
 shell编程跟java、php编程一样，只要有一个能编写代码的文本编辑器和一个能解释执行的脚本解释器就可以了。
@@ -89,16 +76,48 @@ shell只定义了一个非常简单的编程语言，所以，如果你的脚本
 
 - 它的函数只能返回字串，无法返回数组
 - 它不支持面向对象，你无法实现一些优雅的设计模式
-- 它是解释型的，一边解释一边执行，连PHP那种预编译都不是，如果你有一个test.sh，其中包含语法错误，只要没执行到这一行，它就不会报错
+- 它是解释型的，一边解释一边执行，连PHP那种预编译都不是，如果你的脚本包含语法错误，只要没执行到这一行，它就不会报错
+
+### 环境兼容性
+如果你的脚本是提供给别的用户使用，使用sh或者bash，你的脚本将具有最好的环境兼容性，perl很早就是linux标配了，python这些年也成了一些linux发行版的标配，至于mac os，它默认安装了perl、python、ruby、php、java等主流编程语言。
 
 
 ## 第一个shell脚本
 ### 编写
 ### 运行
 
-## 管道
+
 
 ## 变量
+### 定义变量
+定义变量时，变量名不加美元符号（$），如：
+
+	your_name="qinjx"
+
+注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。
+
+除了显式地直接赋值，还可以用语句给变量赋值，如：
+
+	for file in "usr bin etc"
+
+### 使用变量
+使用一个定义过的变量，只要在变量名前面加美元符号即可，如：
+
+	your_name="qinjx"
+	echo $your_name
+
+### 重定义变量
+已定义的变量，可以被重新定义，如：
+
+	your_name="qinjx"
+	echo $your_name
+	
+	your_name="alibaba"
+	echo $your_name
+	
+这样写是合法的，但注意，第二次赋值的时候不能写$your_name="alibaba"，使用变量的时候才加美元符。
+
+## 管道
 
 ## 条件判断
 
