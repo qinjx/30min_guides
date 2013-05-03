@@ -52,6 +52,8 @@ windows出厂时没有内置shell解释器，需要自行安装，为了同时�
 #### sh
 即Bourne shell，POSIX（Portable Operating System Interface）标准的shell解释器，它的二进制文件路径通常是/bin/sh，由Bell Labs开发。
 
+本文讲的是sh，如果你使用其它语言用作shell编程，请自行参考相应语言的文档。
+
 #### bash
 Bash是Bourne shell的替代品，属GNU Project，二进制文件路径通常是/bin/bash。业界通常混用bash、sh、和shell，比如你会经常在招聘运维工程师的文案中见到：熟悉Linux Bash编程，精通Shell编程。
 
@@ -92,7 +94,6 @@ Bash是Bourne shell的替代品，属GNU Project，二进制文件路径通常�
 	./test.php
 
 ## 如何选择shell编程语言
-本文讲的是sh，其它语言用作shell编程，请自行参考相应语言的文档。
 ### 熟悉 vs 陌生
 如果你已经掌握了一门编程语言（如PHP、Python、Java、JavaScript），建议你就直接使用这门语言编写脚本程序，虽然某些地方会有点啰嗦，但你能利用在这门语言领域里的经验（单元测试、单步调试、IDE、第三方类库）。
 
@@ -260,9 +261,108 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 ## 条件判断
 
 ## 流程控制
-不可为空
+和Java、PHP等语言不一样，sh的流程控制不可为空，如：
+
+	<?php
+	if (isset($_GET["q"])) {
+		search(q);
+	}
+	else {
+		//do nothing
+	}
+
+在sh/bash里可不能这么写，如果else分支没有语句执行，就不要写这个else，就像这样
 ### if else
+#### if
+
+	if condition
+	then
+		command1 
+		command2
+		...
+		commandN 
+	fi
+
+写成一行（适用于终端命令提示符）：
+
+	if `ps -ef | grep ssh`;  then echo hello; fi
+	
+末尾的fi就是if倒过来拼写，后面还会遇到类似的
+
+#### if else
+	if condition
+	then
+		command1 
+		command2
+		...
+		commandN
+	else
+		command
+	fi
+
+#### if else-if else
+
+	if condition1
+	then
+		command1
+	elif condition2
+		command2
+	else
+		commandN
+	fi
+
 ### for while
+#### for
+在开篇的示例里演示过了：
+
+	for var in item1 item2 ... itemN
+	do
+		command1
+		command2
+		...
+		commandN
+	done
+
+写成一行：
+
+	for var in item1 item2 ... itemN; do command1; command2… done;
+
+#### C风格的for
+
+	for (( EXP1; EXP2; EXP3 ))
+	do
+		command1
+		command2
+		command3
+	done
+
+#### while
+	while condition
+	do
+		command
+	done
+	
+#### 无限循环
+
+	while :
+	do
+		command
+	done
+
+或者
+
+	while true
+	do
+		command
+	done
+
+#### until
+
+	until condition
+	do
+		command
+	done
+
 ### switch case
 
 ## 函数
@@ -271,7 +371,7 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 
 ## 用户输入
 ### 执行脚本时传入
-### 脚本运行中畭
+### 脚本运行中输入
 ### select菜单
 
 ## stdin和stdout
@@ -283,6 +383,9 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 ### sed
 ### xargs
 ### curl
+
+## 综合案例
+
 
 ## 参考资料
 - [Advanced Bash-Scripting Guide](http://tldp.org/LDP/abs/html/)，非常详细，非常易读，大量example，既可以当入门教材，也可以当做工具书查阅
