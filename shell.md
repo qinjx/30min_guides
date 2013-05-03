@@ -57,7 +57,7 @@ Bash是Bourne shell的替代品，属GNU Project，二进制文件路径通常�
 
 在CentOS里，/bin/sh是一个指向/bin/bash的符号链接:
 
-	[root@centosraw pp]# ls -l /bin/*sh
+	[root@centosraw ~]# ls -l /bin/*sh
 	-rwxr-xr-x. 1 root root 903272 Feb 22 05:09 /bin/bash
 	-rwxr-xr-x. 1 root root 106216 Oct 17  2012 /bin/dash
 	lrwxrwxrwx. 1 root root      4 Mar 22 10:22 /bin/sh -> bash
@@ -106,7 +106,7 @@ shell只定义了一个非常简单的编程语言，所以，如果你的脚本
 
 - 它的函数只能返回字串，无法返回数组
 - 它不支持面向对象，你无法实现一些优雅的设计模式
-- 它是解释型的，一边解释一边执行，连PHP那种预编译都不是，如果你的脚本包含语法错误，只要没执行到这一行，它就不会报错
+- 它是解释型的，一边解释一边执行，连PHP那种预编译都不是，如果你的脚本包含错误(例如调用了不存在的函数)，只要没执行到这一行，就不会报错
 
 ### 环境兼容性
 如果你的脚本是提供给别的用户使用，使用sh或者bash，你的脚本将具有最好的环境兼容性，perl很早就是linux标配了，python这些年也成了一些linux发行版的标配，至于mac os，它默认安装了perl、python、ruby、php、java等主流编程语言。
@@ -154,13 +154,24 @@ shell只定义了一个非常简单的编程语言，所以，如果你的脚本
 
 除了显式地直接赋值，还可以用语句给变量赋值，如：
 
-	for file in "usr bin etc"
+	for file in `ls /etc`
 
 ### 使用变量
 使用一个定义过的变量，只要在变量名前面加美元符号即可，如：
 
 	your_name="qinjx"
 	echo $your_name
+	echo ${your_name}
+
+变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：
+
+	for skill in Ada Coffe Action Java do
+		echo "I am good at ${skill}Script"
+	done
+
+如果不给skill变量加花括号，写成echo "I am good at $skillScript"，解释器就会把$skillScript当成一个变量（其值为空），代码执行结果就不是我们期望的样子了。
+
+推荐给所有变量加上花括号，这是个好的编程习惯。IntelliJ IDEA编写shell script时，IDE就会提示加花括号。
 
 ### 重定义变量
 已定义的变量，可以被重新定义，如：
@@ -194,32 +205,62 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 	#
 	##### 用户配置区 结束  #####
 
-如果在开发过程中，遇到大段的代码需要临时注释起来，过一会儿又取消注释，怎么办呢？每一行加个#符号太费力了，可以把这一段要注释的代码用一对花括号括起来，定义成一个函数，没有地方调用这个函数，就连有语法错误，都不碍事，没有人调用的时候，解释器根本不处理这块代理的。
+如果在开发过程中，遇到大段的代码需要临时注释起来，过一会儿又取消注释，怎么办呢？每一行加个#符号太费力了，可以把这一段要注释的代码用一对花括号括起来，定义成一个函数，没有地方调用这个函数，这块代码就不会执行，达到了和注释一样的效果。
 
 ## 字符串
-字符串是shell编程中最常用最有用的数据类型（除了数字和字符串，也没啥其它类型好用了，哈哈），字符串可以用单引号，也可以用双引号。单双引号的区别跟PHP类似。
-
-- 单引号里的任何字符都会
+字符串是shell编程中最常用最有用的数据类型（除了数字和字符串，也没啥其它类型好用了，哈哈），字符串可以用单引号，也可以用双引号，也可以不用引号。单双引号的区别跟PHP类似。
 
 ### 单引号
+
 	str='this is a string'
+
 单引号字符串的限制：
 
 - 单引号里的任何字符都会原样输出，单引号字符串中的变量是无效的
 - 单引号字串中不能出现单引号（对单引号使用转义符后也不行）
  
 ### 双引号
+
 	your_name='qinjx'
-	str="Hello, I know your are \' $your_name \'"
+	str="Hello, I know your are \"$your_name\"! \n"
 
 - 双引号里可以有变量
 - 双引号里可以出现转义字符
+
+### 字符串操作
+#### 拼接字符串
+	
+	your_name="qinjx"
+	greeting="hello, "$your_name" !"
+	greeting_1="hello, ${your_name} !"
+	
+	echo $greeting $greeting_1
+
+#### 获取字符串长度：
+
+	string="abcd"
+	echo ${#string} #输出 4
+
+#### 提取子字符串
+
+	string="alibaba is a great company"
+	echo ${string:1:4} //输出liba
+
+#### 查找子字符串
+
+	string="alibaba is a great company"
+	echo `expr index "$string" is`
+
+#### 更多
+参见本文档末尾的参考资料中[Advanced Bash-Scripting Guid Chapter 10.1](http://tldp.org/LDP/abs/html/string-manipulation.html)
+
 
 ## 管道
 
 ## 条件判断
 
 ## 流程控制
+不可为空
 ### if else
 ### for while
 ### switch case
@@ -242,3 +283,8 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 ### sed
 ### xargs
 ### curl
+
+## 参考资料
+- [Advanced Bash-Scripting Guide](http://tldp.org/LDP/abs/html/)，非常详细，非常易读，大量example，既可以当入门教材，也可以当做工具书查阅
+- [Unix Shell Programming](http://www.tutorialspoint.com/unix/unix-shell.htm)
+- [Linux Shell Scripting Tutorial - A Beginner's handbook](http://bash.cyberciti.biz/guide/Main_Page)
