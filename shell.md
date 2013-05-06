@@ -255,6 +255,7 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 #### 更多
 参见本文档末尾的参考资料中[Advanced Bash-Scripting Guid Chapter 10.1](http://tldp.org/LDP/abs/html/string-manipulation.html)
 
+## 数组
 
 ## 管道
 
@@ -356,6 +357,10 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 		command
 	done
 
+或者
+
+	for (( ; ; ))
+
 #### until
 
 	until condition
@@ -363,11 +368,50 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 		command
 	done
 
-### switch case
+### case
+
+	case "${opt}" in
+		"Install-Puppet-Server" )
+			install_master $1
+			exit
+		;;
+
+		"Install-Puppet-Client" )
+			install_client $1
+			exit
+		;;
+
+		"Config-Puppet-Server" )
+			config_puppet_master
+			exit
+		;;
+
+		"Config-Puppet-Client" )
+			config_puppet_client
+			exit
+		;;
+
+		"Exit" )
+			exit
+		;;
+
+		* ) echo "Bad option, please choose again"
+	esac
+
+case的语法和C family语言差别很大，它需要一个esac（就是case反过来）作为结束标记，每个case分支用右圆括号，用两个分号表示break
+
 
 ## 函数
+### 定义
+### 调用
 
 ## 文件包含
+可以使用source和.关键字，如：
+
+	source ./function.sh
+	. ./function.sh
+
+在bash里，source和.是等效的，他们都是读入function.sh的内容并执行其内容（类似PHP里的include），为了更好的可移植性，推荐使用第二种写法。
 
 ## 用户输入
 ### 执行脚本时传入
@@ -377,10 +421,22 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 ## stdin和stdout
 
 ## 常用的命令
+sh脚本结合系统命令便有了强大的威力，在字符处理领域，有grep、awk、sed三剑客，grep负责找出特定的行，awk能将行拆分成多个字段，sed则可以实现更新插入删除等写操作。
+
 ### ps
+查看进程列表
+
 ### grep
+#### 排除grep自身
+#### 查找与target相邻的结果
+
 ### awk
+
 ### sed
+#### 插入
+#### 替换
+#### 删除
+
 ### xargs
 ### curl
 
