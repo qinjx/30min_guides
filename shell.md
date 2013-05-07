@@ -97,7 +97,7 @@ Bash是Bourne shell的替代品，属GNU Project，二进制文件路径通常�
 ### 熟悉 vs 陌生
 如果你已经掌握了一门编程语言（如PHP、Python、Java、JavaScript），建议你就直接使用这门语言编写脚本程序，虽然某些地方会有点啰嗦，但你能利用在这门语言领域里的经验（单元测试、单步调试、IDE、第三方类库）。
 
-新增的学习成本很小，只要潌怎么使用shell解释器（Jshell、AdaScript）就可以了。
+新增的学习成本很小，只要学会怎么使用shell解释器（Jshell、AdaScript）就可以了。
 
 
 ### 简单 vs 高级
