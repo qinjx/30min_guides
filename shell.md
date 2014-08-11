@@ -422,6 +422,20 @@ case的语法和C family语言差别很大，它需要一个esac（就是case反
 
 在bash里，source和.是等效的，他们都是读入function.sh的内容并执行其内容（类似PHP里的include），为了更好的可移植性，推荐使用第二种写法。
 
+包含一个文件和在执行一个文件一样，也要写这个文件的路径，不能光写文件名，比如上述例子中:
+
+	. ./function.sh
+
+不可以写作：
+
+	. function.sh
+
+如果function.sh是用户传入的参数，如何获得它的绝对路径呢？方法是：
+
+	real_path=`readlink -f $1`#$1是用户输入的参数，如function.sh
+	. $real_path
+
+
 ## 用户输入
 ### 执行脚本时传入
 ### 脚本运行中输入
