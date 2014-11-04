@@ -364,7 +364,7 @@ selector就是一个方法指针，类似PHP里的动态方法名：
 	}
 	@end
 
-#### 延时异步执行
+##### 延时异步执行
 
 	@implementation ETHotDealViewController
 	- (void)viewDidLoad {
