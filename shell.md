@@ -45,8 +45,8 @@ Mac OS不仅带了sh、bash这两个最基础的解释器，还内置了ksh、cs
 #### Windows上的模拟器
 windows出厂时没有内置shell解释器，需要自行安装，为了同时能用grep, awk, curl等工具，最好装一个cygwin或者mingw来模拟linux环境。
 
-- [cygwin](www.cygwin.com)
-- [mingw](www.mingw.org)
+- [cygwin](http://www.cygwin.com)
+- [mingw](http://www.mingw.org)
 
 ### 脚本解释器
 #### sh
