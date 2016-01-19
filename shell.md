@@ -275,7 +275,7 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 
 在sh/bash里可不能这么写，如果else分支没有语句执行，就不要写这个else。
 
-还要注意，sh里的if [ $foo -eq 0 ]，这个方括号跟Java/PHP里if后面的圆括号大不相同，它是一个可执行程序（和cd, ls, grep一样），相不到吧？在CentOS上，它在/usr/bin目录下：
+还要注意，sh里的if [ $foo -eq 0 ]，这个方括号跟Java/PHP里if后面的圆括号大不相同，它是一个可执行程序（和cd, ls, grep一样），想不到吧？在CentOS上，它在/usr/bin目录下：
 
 	ll /usr/bin/[
 	-rwxr-xr-x. 1 root root 33408 6月  22 2012 /usr/bin/[
@@ -422,7 +422,7 @@ case的语法和C family语言差别很大，它需要一个esac（就是case反
 
 在bash里，source和.是等效的，他们都是读入function.sh的内容并执行其内容（类似PHP里的include），为了更好的可移植性，推荐使用第二种写法。
 
-包含一个文件和在执行一个文件一样，也要写这个文件的路径，不能光写文件名，比如上述例子中:
+包含一个文件和执行一个文件一样，也要写这个文件的路径，不能光写文件名，比如上述例子中:
 
 	. ./function.sh
 
