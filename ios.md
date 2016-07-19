@@ -445,7 +445,7 @@ Java里没有类似的实现，除了Collection里会有一些方法带有option
 
 示例：
 
-	@interface  class MyClass : NSObject <Printable, Drawable>
+	@interface MyClass : NSObject <Printable, Drawable>
 	@end
 
 Printable, Drawablw就是两个协议。
@@ -477,7 +477,7 @@ Printable, Drawablw就是两个协议。
 使用的时候，只要包含NSObject+Json.h，实例化NSObject类，就可以使用toJson方法了：
 
 	import "NSObject+Json.h"
-	@implatementation XYZController
+	@implementation XYZController
 		-(void)test {
 			NSObject *obj = [[NSObject alloc]init];
 			NSString *str = [obj toJson];
@@ -513,7 +513,7 @@ Printable, Drawablw就是两个协议。
 使用：
 
 	import "NSObject+Json+XML.h"
-	@implatementation XYZController
+	@implementation XYZController
 		-(void)test {
 			NSObject *obj = [[NSObject alloc]init];
 			NSString *json = [obj toJson];
