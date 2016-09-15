@@ -23,7 +23,7 @@ Shell脚本编程30分钟入门
 - 第6行：创建一个test_1…10.txt文件
 - 第7行：循环体结束
 
-cd, mkdir, touch都是系统自带的程序，一般在/bin或者/usr/bin目录下。for, do, done是sh脚本语言的关键字。
+mkdir, touch是系统自带的程序，一般都在/bin或者/usr/bin目录下。for, do, done是sh脚本语言的关键字。cd是shell自带命令,类似的还有alias,pwd。
 
 ### shell和shell脚本的概念
 shell是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。Ken Thompson的sh是第一种Unix Shell，Windows Explorer是一个典型的图形界面Shell。
