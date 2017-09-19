@@ -20,7 +20,7 @@ Shell脚本编程30分钟入门
 - 第3行：创建一个目录shell_tut
 - 第4行：切换到shell_tut目录
 - 第5行：循环条件，一共循环10次
-- 第6行：创建一个test_1…10.txt文件
+- 第6行：创建一个test_0…9.txt文件
 - 第7行：循环体结束
 
 mkdir, touch都是系统自带的程序，一般在/bin或者/usr/bin目录下。for, do, done是sh脚本语言的关键字。
