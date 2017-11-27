@@ -246,7 +246,7 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 #### 提取子字符串
 
 	string="alibaba is a great company"
-	echo ${string:1:4} #输出：liba
+	echo ${#string:1:4} #输出：liba
 
 #### 查找子字符串
 
