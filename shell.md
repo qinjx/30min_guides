@@ -190,7 +190,7 @@ shell只定义了一个非常简单的编程语言，所以，如果你的脚本
 以“#”开头的行就是注释，会被解释器忽略。
 
 ### 多行注释
-sh里没有多行注释，只能每一行加一个#号。就像这样：
+sh里没有多行注释，只能每一行加一个#号，就像这样：
 
 	#--------------------------------------------
 	# 这是一个自动打ipa的脚本，基于webfrogs的ipa-build书写：https://github.com/webfrogs/xcode_shell/blob/master/ipa-build
@@ -227,14 +227,15 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 	str="Hello, I know your are \"$your_name\"! \n"
 
 - 双引号里可以有变量
-- 双引号里可以出现转义字符
+- 双引号里可以出现转义字符（比如 \"）
+- echo 命令默认不执行转义控制字符，需要加 -e 参数才行，比如把上例的 \n 执行成换行
 
 ### 字符串操作
 #### 拼接字符串
 	
 	your_name="qinjx"
-	greeting="hello, "$your_name" !"
-	greeting_1="hello, ${your_name} !"
+	greeting="hello, "$your_name"! "
+	greeting_1="hello, ${your_name}! "
 	
 	echo $greeting $greeting_1
 
