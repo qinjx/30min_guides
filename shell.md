@@ -209,6 +209,49 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 
 如果在开发过程中，遇到大段的代码需要临时注释起来，过一会儿又取消注释，怎么办呢？每一行加个#符号太费力了，可以把这一段要注释的代码用一对花括号括起来，定义成一个函数，没有地方调用这个函数，这块代码就不会执行，达到了和注释一样的效果。
 
+### 多行注释 hack & here-documents
+
+> 多行注释 hack
+
+```sh
+
+: '
+This is a
+very neat comment
+in bash
+'
+
+```
+
+> here-documents
+
+```sh
+
+: <<'end_long_comment'
+This is an abuse of the null command ':' and the here-document syntax
+to achieve a "multi-line comment".  According to the POSIX spec linked
+above, if any character in the delimiter word ("end_long_comment" in
+this case) above is quoted, the here-document will not be expanded in
+any way.  This is **critical**, as failing to quote the "end_long_comment"
+will result in the problems with unintended expansions described above.
+All of this text in this here-doc goes to the standard input of :, which
+does nothing with it, hence the effect is like a comment.  There is very
+little point to doing this besides throwing people off.  Just use '#'.
+end_long_comment
+
+```
+
+https://stackoverflow.com/questions/43158140/way-to-create-multiline-comments-in-bash
+
+https://unix.stackexchange.com/questions/37411/multiline-shell-script-comments-how-does-this-work
+
+https://www.cyberciti.biz/faq/bash-comment-out-multiple-line-code/
+
+http://technicalworldforyou.blogspot.com/2012/09/multi-line-comment-in-shell-script.html
+
+http://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_07_04
+
+
 ## 字符串
 字符串是shell编程中最常用最有用的数据类型（除了数字和字符串，也没啥其它类型好用了，哈哈），字符串可以用单引号，也可以用双引号，也可以不用引号。单双引号的区别跟PHP类似。
 
