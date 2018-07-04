@@ -251,7 +251,11 @@ sh里没有多行注释，只能每一行加一个#号。就像这样：
 #### 查找子字符串
 
 	string="alibaba is a great company"
-	echo `expr index "$string" is`#输出：3，这个语句的意思是：找出字母i在这名话中的位置，要在linux下运行，mac下会报错
+	echo `expr index "$string" i`
+	#输出：3，这个语句的意思是：找出字符串中的字母 i 在字符串中第一次出现的位置，要在linux下运行，mac下会报错
+	echo `expr index "$string" s`
+	#输出 10
+
 
 #### 更多
 参见本文档末尾的参考资料中[Advanced Bash-Scripting Guid Chapter 10.1](http://tldp.org/LDP/abs/html/string-manipulation.html)
