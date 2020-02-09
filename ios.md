@@ -412,7 +412,7 @@ selector就是一个方法指针，类似PHP里的动态方法名：
 
 对应的Java版本是：
 
-	publilc interface Printable {
+	public interface Printable {
 		public void print(String str);
 	}
 
